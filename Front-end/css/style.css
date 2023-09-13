@@ -1,0 +1,14 @@
+#header{
+    font-size: 38px;
+    background-color: yellow;
+    padding: 10px;
+    color: gray;
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: black;
+   
+   }
+   
+   body{
+       margin: 0;
+       padding: 0;
+   }
