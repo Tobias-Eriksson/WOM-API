@@ -1,65 +1,45 @@
-const note = document.getElementById("note");
+const notesDiv = <HTMLElement> document.getElementById("notesDiv")
 
-interface Note {
-    msg: string,
-    reqBody: {
-        id: string,
-        noteText: string
-    }
+interface Notes<T> {
+    msg: string
+    reqBody: T[];
 }
 
-interface Notes {
-    msg: string,
-    reqBody: {
-        id: string,
-        noteText: string
-    }
+interface reqBody {
+    id: string,
+    noteText: string
 }
 
-if (note) {
+function getNotes(): Promise<Notes<reqBody>> {
 
-    function getNotes(): Promise<Notes> {
+    const headers: Headers = new Headers()
+    headers.set('Content-Type', 'application/json')
+    headers.set('Accept', 'application/json')
+    headers.set('X-Custom-Header', 'CustomValue')
 
-        const headers: Headers = new Headers()
-        headers.set('Content-Type', 'application/json')
-        headers.set('Accept', 'application/json')
-        headers.set('X-Custom-Header', 'CustomValue')
+    const request: RequestInfo = new Request('http://localhost:3000/notes', {
+        method: 'GET',
+        headers: headers
+    })
 
-        const request: RequestInfo = new Request('http://localhost:3000/notes/', {
-            method: 'GET',
-            headers: headers
-        })
-
-        return fetch(request)
-            .then(res => res.json())
-            .then(res => {
-                return res as Notes;
-            })
-    }
-
-    function getNote(): Promise<Note> {
-
-        const headers: Headers = new Headers()
-        headers.set('Content-Type', 'application/json')
-        headers.set('Accept', 'application/json')
-        headers.set('X-Custom-Header', 'CustomValue')
-
-        const request: RequestInfo = new Request('http://localhost:3000/notes/64f9b0f2e77a64323d94b2e7', {
-            method: 'GET',
-            headers: headers
-        })
-
-        return fetch(request)
-            .then(res => res.json())
-            .then(res => {
-                return res as Note;
-            })
-
-    }
-
-    console.log(getNote())
-    getNote()
-        .then(notes => {
-            note.innerHTML = notes.reqBody.noteText
+    return fetch(request)
+        .then(res => res.json())
+        .then(res => {
+            return res as Notes<reqBody>;
         })
 }
+
+
+getNotes()
+    .then(notes => {
+        for (let i = 0; i < notes.reqBody.length; i++) {
+            const note = <HTMLElement> document.createElement("div")
+            note.id = "note"+i
+            note.className = "notes"
+            note.innerHTML = notes.reqBody[i].noteText
+            
+            notesDiv.appendChild(note);
+
+        }
+    })
+
