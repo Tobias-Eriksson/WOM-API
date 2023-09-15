@@ -12,3 +12,12 @@
        margin: 0;
        padding: 0;
    }
+
+   #note{
+    height: 100px;
+    width: 100px;
+    margin-left: 100px;
+    margin-top: 100px;
+    background-color: lightyellow;
+    border: 1px black solid;
+   }

@@ -1,12 +1,14 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-const notes = require('./routes/notes.ts')
+var cors = require('cors')
+const notes = require('./routes/notes')
 
 dotenv.config();
 
 
 const app: Express = express();
 app.use(express.json())
+app.use(cors())
 const port = process.env.PORT;
 
 app.get('/', (req: Request, res: Response) => {
