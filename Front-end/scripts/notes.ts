@@ -1,4 +1,4 @@
-const notesDiv = <HTMLElement> document.getElementById("notesDiv")
+const notesDiv = <HTMLElement>document.getElementById("notesDiv")
 
 interface Notes<T> {
     msg: string
@@ -29,17 +29,21 @@ function getNotes(): Promise<Notes<reqBody>> {
         })
 }
 
+try {
+    getNotes()
+        .then(notes => {
+            for (let i = 0; i < notes.reqBody.length; i++) {
+                const note = <HTMLElement>document.createElement("div")
+                note.id = "note" + i
+                note.classList.add('notes', 'col-sm-2', 'm-2');
+                note.innerHTML = notes.reqBody[i].noteText
 
-getNotes()
-    .then(notes => {
-        for (let i = 0; i < notes.reqBody.length; i++) {
-            const note = <HTMLElement> document.createElement("div")
-            note.id = "note"+i
-            note.className = "notes"
-            note.innerHTML = notes.reqBody[i].noteText
-            
-            notesDiv.appendChild(note);
+                notesDiv.appendChild(note);
 
-        }
-    })
+            }
+        })
+
+}catch(err){
+    console.log(err)
+}
 
