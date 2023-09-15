@@ -1,23 +1,41 @@
-#header{
-    font-size: 38px;
-    background-color: yellow;
-    padding: 10px;
-    color: gray;
-    -webkit-text-stroke: 1px;
-    -webkit-text-stroke-color: black;
-   
-   }
-   
-   body{
-       margin: 0;
-       padding: 0;
-   }
+#header {
+  font-size: 38px;
+  background-color: yellow;
+  padding: 10px;
+  color: gray;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: black;
+}
 
-   .notes{
-    height: 100px;
-    width: 100px;
-    margin-left: 100px;
-    margin-top: 100px;
-    background-color: lightyellow;
-    border: 1px black solid;
-   }
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.notes {
+  height: 100px;
+  width: 100px;
+  margin-left: 100px;
+  margin-top: 100px;
+  background-color: lightyellow;
+  border: 1px black solid;
+}
+#notesDiv {
+  width: 90%;
+  margin: auto;
+  align-content: center;
+}
+
+#boards {
+  margin: auto;
+  margin-top: 10px;
+  width: 90%;
+  height: 50px;
+  border: 1px solid black;
+}
+
+#newNoteBtn {
+  float: right;
+  height: 100%;
+  border-radius: 0;
+}
