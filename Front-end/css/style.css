@@ -13,13 +13,34 @@ body {
 }
 
 .notes {
-  height: 100px;
+  min-height: 100px;
   width: 100px;
   margin-left: 100px;
   margin-top: 100px;
   background-color: lightyellow;
   border: 1px black solid;
+  position: relative;
 }
+
+.notesText:focus,
+input:focus {
+  outline: none;
+}
+.xButton:focus,
+.xButton:active:focus,
+.xButton.active:focus,
+.xButton.focus,
+.xButton:active.focus,
+.xButton.active.focus {
+  outline: none;
+}
+
+.xButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 #notesDiv {
   width: 90%;
   margin: auto;
