@@ -19,3 +19,20 @@
 ---
 
 APIns funktionalitet kan testas med `API/REST-client/DBRequests.http`
+
+---
+
+TODO
+
+- Erik:
+
+  - Websockets
+  - Frontend slipining
+
+- Tobias:
+
+  - Inloggning med JWT-tokens
+
+- Tillsammans:
+
+  - Driftsättning till Azure
