@@ -1,15 +1,15 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 const router: Express = express();
 
-console.log("Notes");
+console.log("note");
 
 //READALL
 router.get("/", async (req: any, res: any) => {
   try {
-    const note = await prisma.notes.findMany();
+    const note = await prisma.note.findMany();
     res.status(200).json({ msg: "get", reqBody: note });
   } catch (err) {
     res.status(400).json({ msg: "ERROR", error: err });
@@ -19,7 +19,7 @@ router.get("/", async (req: any, res: any) => {
 //READ
 router.get("/:id", async (req: any, res: any) => {
   try {
-    const note = await prisma.notes.findUnique({
+    const note = await prisma.note.findUnique({
       where: {
         id: req.params.id,
       },
@@ -33,12 +33,12 @@ router.get("/:id", async (req: any, res: any) => {
 //UPDATE
 router.patch("/:id", async (req: any, res: any) => {
   try {
-    const note = await prisma.notes.update({
+    const note = await prisma.note.update({
       where: {
         id: req.params.id,
       },
       data: {
-        noteText: req.body.text,
+        content: req.body.text,
       },
     });
     res.send({ msg: "patch", reqBody: req.body });
@@ -51,7 +51,7 @@ router.patch("/:id", async (req: any, res: any) => {
 //DELETE
 router.delete("/:id", async (req: any, res: any) => {
   try {
-    const deleteId = await prisma.notes.delete({
+    const deleteId = await prisma.note.delete({
       where: {
         id: req.params.id,
       },
@@ -68,9 +68,9 @@ router.delete("/:id", async (req: any, res: any) => {
 //CREATE
 router.post("/", async (req: any, res: any) => {
   try {
-    const note = await prisma.notes.create({
+    const note = await prisma.note.create({
       data: {
-        noteText: req.body.text,
+        content: req.body.text,
       },
     });
     res.send({ msg: "post", reqBody: req.body });
