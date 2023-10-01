@@ -1,0 +1,22 @@
+@apiUrl = http://localhost:3000/login
+
+###CREATE USER
+POST {{apiUrl}}/createUser
+Content-Type: application/json
+
+{
+    "name": "Tobias",
+    "password": "Tobias",
+    "user": "Tobias",
+    "boards": ["moro", "moro2"]
+
+}
+
+###LOGIN
+POST {{apiUrl}}/login
+Content-Type: application/json
+
+{
+    "password": "Tobias",
+    "user": "Tobias"
+}

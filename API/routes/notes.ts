@@ -1,20 +1,18 @@
-import express, { Express } from 'express';
+import express, { Express } from 'express'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
-const router: Express = express();
-
-console.log("note");
+const router: Express = express()
 
 //READALL
 router.get("/", async (req: any, res: any) => {
   try {
-    const note = await prisma.note.findMany();
-    res.status(200).json({ msg: "get", reqBody: note });
+    const note = await prisma.note.findMany()
+    res.status(200).json({ msg: "get", reqBody: note })
   } catch (err) {
-    res.status(400).json({ msg: "ERROR", error: err });
+    res.status(400).json({ msg: "ERROR", error: err })
   }
-});
+})
 
 //READ
 router.get("/:id", async (req: any, res: any) => {
@@ -23,12 +21,12 @@ router.get("/:id", async (req: any, res: any) => {
       where: {
         id: req.params.id,
       },
-    });
-    res.send({ msg: "get", reqBody: note });
+    })
+    res.send({ msg: "get", reqBody: note })
   } catch (err) {
-    res.send({ msg: "ERROR", error: err });
+    res.send({ msg: "ERROR", error: err })
   }
-});
+})
 
 //UPDATE
 router.patch("/:id", async (req: any, res: any) => {
@@ -40,13 +38,13 @@ router.patch("/:id", async (req: any, res: any) => {
       data: {
         content: req.body.text,
       },
-    });
-    res.send({ msg: "patch", reqBody: req.body });
+    })
+    res.send({ msg: "patch", reqBody: req.body })
   } catch (err) {
-    res.send({ msg: "ERROR", error: err });
+    res.send({ msg: "ERROR", error: err })
     console.log(err)
   }
-});
+})
 
 //DELETE
 router.delete("/:id", async (req: any, res: any) => {
@@ -55,15 +53,15 @@ router.delete("/:id", async (req: any, res: any) => {
       where: {
         id: req.params.id,
       },
-    });
+    })
     res.send({
       msg: "delete",
       id: req.params.id,
-    });
+    })
   } catch (err) {
-    res.send({ msg: "ERROR", error: err });
+    res.send({ msg: "ERROR", error: err })
   }
-});
+})
 
 //CREATE
 router.post("/", async (req: any, res: any) => {
@@ -71,13 +69,14 @@ router.post("/", async (req: any, res: any) => {
     const note = await prisma.note.create({
       data: {
         content: req.body.text,
+        board: req.body.board
       },
-    });
-    res.send({ msg: "post", reqBody: req.body });
+    })
+    res.send({ msg: "post", reqBody: req.body })
   } catch (err) {
-    res.send({ msg: "ERROR", error: err });
+    res.send({ msg: "ERROR", error: err })
     console.log(err)
   }
-});
+})
 
-module.exports = router;
+module.exports = router
