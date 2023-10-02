@@ -1,0 +1,52 @@
+@apiUrl = http://localhost:3000/notes
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmVkNGUzNmZkZmE3ZTdlMjM3MzUiLCJuYW1lIjoiVG9iaWFzIiwiZXhwaXJlc0luIjoiMWQiLCJib2FyZHMiOlsibW9ybyIsIm1vcm8yIl0sImlhdCI6MTY5NjI1NzA2NX0.YsPNkkj5Db-rXb6NQDUYVFOEu-54I_fAHc8r3LVlxzg
+
+###CREATE
+POST {{apiUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "content": "Moro note69",
+    "board": "moro",
+    "heading": "Bigheading",
+    "color": "red",
+    "position": "1"
+}
+
+###READ
+GET {{apiUrl}}/64f9b0f2e77a64323d94b2e7
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###READALL
+GET {{apiUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+###UPDATE
+PATCH {{apiUrl}}/651ad6c3e9d788c43711a58d
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+
+    "content": "Googo gaagaa gogo"
+}
+
+###DELETE
+DELETE {{apiUrl}}/651ad05e8977cfb0dff301c7
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+###GET ALL NOTES FROM BOARD
+GET {{apiUrl}}/board/wallpapers
+Content-Type: application/json
+Authorization: Bearer {{token}}
+

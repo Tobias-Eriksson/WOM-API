@@ -1,0 +1,33 @@
+@apiUrl = http://localhost:3000/login
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmVkNGUzNmZkZmE3ZTdlMjM3MzUiLCJuYW1lIjoiVG9iaWFzIiwiZXhwaXJlc0luIjoiMWQiLCJib2FyZHMiOlsibW9ybyIsIm1vcm8yIl0sImlhdCI6MTY5NjI1NzA2NX0.YsPNkkj5Db-rXb6NQDUYVFOEu-54I_fAHc8r3LVlxzg
+
+###CREATE USER
+POST {{apiUrl}}/createUser
+Content-Type: application/json
+
+{
+    "name": "Tobias",
+    "password": "Tobias",
+    "user": "Tobias4",
+    "boards": ["moro", "moro2", "Wallpapers"]
+
+}
+
+###LOGIN
+POST {{apiUrl}}/login
+Content-Type: application/json
+
+{
+    "password": "Tobias",
+    "user": "Tobias"
+}
+
+###PATCH
+PATCH {{apiUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "boards": ["moro", "moro3", "wallpapers", "moro44"]
+}

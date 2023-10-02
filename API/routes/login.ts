@@ -2,12 +2,14 @@ import express, { Express } from 'express'
 import { PrismaClient } from '@prisma/client'
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+import authMiddleware from '../middleware/auth'
+import { json } from 'node:stream/consumers'
+
 
 const prisma = new PrismaClient()
 const router: Express = express()
 
 
-//TODO INTERFACES
 interface createUserRequestBody {
     user: string,
     password: string,
@@ -26,7 +28,7 @@ router.post("/login", async (req: any, res: any) => {
     try {
         const requestBody: loginRequestBody = req.body;
         if (!requestBody) {
-            res.send({ msg: "Error", error: "Request body faulty" })
+            return res.send({ msg: "Error", error: "Request body faulty" })
         }
 
         const user = await prisma.user.findUnique({
@@ -50,10 +52,10 @@ router.post("/login", async (req: any, res: any) => {
             boards: user.boards
         }, process.env.JWT_SECRET)
 
-        res.send({ token: token, msg: "Login successful", userId: user.id })
+        return res.send({ token: token, msg: "Login successful", userId: user.id })
 
     } catch (err) {
-        res.send({ msg: "ERROR", error: err })
+        return res.send({ msg: "ERROR", error: err })
     }
 })
 
@@ -71,12 +73,35 @@ router.post("/createUser", async (req: any, res: any) => {
                 boards: requestBody.boards
             },
         })
-        res.send({ msg: "success", newUser: requestBody.user })
+        return res.send({ msg: "success", newUser: requestBody.user })
 
+    } catch (err: any) {
+        if (err.msg.code === "P2002") {
+            return res.send({ msg: "ERROR", error: "User already exists" })
+        }
+        return res.status(500).send({ error: "An error occurred while creating the user", msg: err });
+
+    }
+})
+
+//Patch user
+router.patch("/", authMiddleware, async (req: any, res: any) => {
+    const authUser = (req as any).authUser;
+    try {
+        const user = await prisma.user.update({
+            where: {
+                id: authUser.sub,
+            },
+            data: {
+                password: req.body.password,
+                name: req.body.name,
+                boards: authUser.boards.concat(req.body.boards)
+
+            },
+        })
+        return res.send({ msg: "patch", reqBody: req.body })
     } catch (err) {
-        console.error("Error creating user:", err);
-        res.status(500).send({ error: "An error occurred while creating the user", msg: err });
-
+        return res.send({ msg: "ERROR", error: err })
     }
 })
 

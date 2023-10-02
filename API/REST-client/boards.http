@@ -1,0 +1,10 @@
+@apiUrl = http://localhost:3000/boards
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFhYzczNzJjN2YzMzMzYjMxNDU5MzYiLCJuYW1lIjoiVG9iaWFzIiwiZXhwaXJlc0luIjoiMWQiLCJib2FyZHMiOlsibW9ybyIsIm1vcm8zIiwid2FsbHBhcGVycyIsIm1vcm8iLCJtb3JvMyIsIndhbGxwYXBlcnMiLCJtb3JvNDQiXSwiaWF0IjoxNjk2MjU1NTQ5fQ.g6bvIVzxDn11HmcFMI6ZEHWM5zhuFTGSbXHqCxGJ8W0
+
+
+GET {{apiUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+

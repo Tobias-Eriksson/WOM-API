@@ -9,14 +9,14 @@ datasource db {
 }
 
 model Note {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   board     String
   heading   String?
   content   String?
-  color     String?
-  creator   String?
-  timestamp DateTime?
-  position  Json?
+  color     String
+  creator   String
+  timestamp DateTime
+  position  Json
 }
 
 model User {
