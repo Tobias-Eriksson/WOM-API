@@ -181,15 +181,11 @@ router.post("/", authMiddleware, async (req: any, res: any) => {
       },
     });
 
-    //Get note ID back
-    const noteId = await prisma.note.findUnique({
-      where: { id: note.id },
-    });
-    if (!noteId) {
-      return res.send({ msg: "ERROR", error: "Note created but failed to return the note id" });
+    if (!note) {
+      return res.send({ msg: "ERROR", error: "failed to create note" });
     }
-    return res.send({ msg: "post", reqBody: req.body, id: noteId.id });
 
+    return res.send({ msg: "post", note: note });
   } catch (err) {
     console.log(err);
     return res.send({ msg: "ERROR", error: err });

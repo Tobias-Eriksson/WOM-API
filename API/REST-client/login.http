@@ -1,4 +1,4 @@
-@apiUrl = http://localhost:3000/login
+@apiUrl = http://localhost:3000/notes
 
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0IiwiZGVmYXVsdCJdLCJpYXQiOjE2OTYzNTY5NDR9.ByYYl8L6f1ppQ70RjTF6Ig27awmV7L9RwVTrRLdEdvA
 
