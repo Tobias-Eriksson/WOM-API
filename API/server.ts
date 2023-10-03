@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, Router } from 'express'
 import dotenv from 'dotenv'
-var cors = require('cors')
+const cors = require('cors')
 const notes = require('./routes/notes')
 const login = require('./routes/login')
 const boards = require('./routes/boards')
