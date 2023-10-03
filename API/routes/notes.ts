@@ -47,10 +47,27 @@ router.get("/board/:board", authMiddleware, async (req: any, res: any) => {
   }
 });
 
-//READ DISABLED
-/*
+//READ
 router.get("/:id", authMiddleware, async (req: any, res: any) => {
   try {
+    //Checka om access till board vart note är
+    const authUser = (req as any).authUser;
+    const findNote = await prisma.note.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!findNote) {
+      return res.send({ msg: "ERROR", error: "Note not found" });
+    }
+    if (!authUser.boards.includes(findNote.board)) {
+      return res.send({
+        msg: "ERROR",
+        error: "User does not have access to board where the note is located",
+      });
+    }
+
+    //Read note
     const note = await prisma.note.findUnique({
       where: {
         id: req.params.id,
@@ -61,12 +78,12 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
     res.send({ msg: "ERROR", error: err })
   }
 })
-*/
+
 
 //UPDATE
 router.patch("/:id", authMiddleware, async (req: any, res: any) => {
   try {
-    //Checka om access till note
+    ////Checka om access till board vart note är
     const authUser = (req as any).authUser;
     const findNote = await prisma.note.findUnique({
       where: {
