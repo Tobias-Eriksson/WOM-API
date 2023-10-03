@@ -76,7 +76,7 @@ router.post("/createUser", async (req: any, res: any) => {
         return res.send({ msg: "success", newUser: requestBody.user })
 
     } catch (err: any) {
-        if (err.msg.code === "P2002") {
+        if (err.msg && err.msg.code === "P2002") {
             return res.send({ msg: "ERROR", error: "User already exists" })
         }
         return res.status(500).send({ error: "An error occurred while creating the user", msg: err });

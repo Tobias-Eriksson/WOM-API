@@ -8,7 +8,7 @@ Authorization: Bearer {{token}}
 
 
 {
-    "content": "Moro note69",
+    "content": "Moro erik 3.10",
     "board": "moro",
     "heading": "Bigheading",
     "color": "red",
