@@ -1,6 +1,6 @@
-@apiUrl = http://localhost:8080/login
+@apiUrl = http://localhost:3000/login
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiXSwiaWF0IjoxNjk2MzI5NTA2fQ.zwXetAvO4J9a5RK-uLBwEH7gdGXQZOxfgEKNVg2ZFoE
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0IiwiZGVmYXVsdCJdLCJpYXQiOjE2OTYzNTY5NDR9.ByYYl8L6f1ppQ70RjTF6Ig27awmV7L9RwVTrRLdEdvA
 
 ###CREATE USER
 POST {{apiUrl}}/createUser
@@ -28,5 +28,5 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "boards": ["moro", "moro3", "wallpapers", "moro44"]
+    "boards": ["default"]
 }

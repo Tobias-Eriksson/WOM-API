@@ -1,5 +1,5 @@
 @apiUrl = http://localhost:3000/notes
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmVkNGUzNmZkZmE3ZTdlMjM3MzUiLCJuYW1lIjoiVG9iaWFzIiwiZXhwaXJlc0luIjoiMWQiLCJib2FyZHMiOlsibW9ybyIsIm1vcm8yIl0sImlhdCI6MTY5NjI1NzA2NX0.YsPNkkj5Db-rXb6NQDUYVFOEu-54I_fAHc8r3LVlxzg
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0IiwiZGVmYXVsdCJdLCJpYXQiOjE2OTYzNTY5NDR9.ByYYl8L6f1ppQ70RjTF6Ig27awmV7L9RwVTrRLdEdvA
 
 ###CREATE
 POST {{apiUrl}}
@@ -16,7 +16,7 @@ Authorization: Bearer {{token}}
 }
 
 ###READ
-GET {{apiUrl}}/64f9b0f2e77a64323d94b2e7
+GET {{apiUrl}}/651c42a9a162e59bf7500f75
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -26,7 +26,10 @@ GET {{apiUrl}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-
+###READ ALL NOTES FROM BOARD
+GET {{apiUrl}}/board/default
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ###UPDATE
 PATCH {{apiUrl}}/651ad6c3e9d788c43711a58d
@@ -45,8 +48,5 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-###GET ALL NOTES FROM BOARD
-GET {{apiUrl}}/board/wallpapers
-Content-Type: application/json
-Authorization: Bearer {{token}}
+
 
