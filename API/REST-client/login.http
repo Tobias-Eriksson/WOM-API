@@ -10,7 +10,6 @@ Content-Type: application/json
     "name": "Erik",
     "password": "Erik",
     "user": "Erik",
-    "boards": ["moro", "moro2", "Wallpapers"]
 }
 
 ###LOGIN

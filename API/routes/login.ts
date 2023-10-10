@@ -21,7 +21,6 @@ interface loginRequestBody {
 
 //Login
 router.post("/login", async (req: any, res: any) => {
-    console.log("login");
     try {
         const requestBody: loginRequestBody = req.body;
         if (!requestBody) {
