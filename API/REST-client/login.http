@@ -1,15 +1,15 @@
 @apiUrl = http://localhost:3070/login
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTUyODE0fQ.J81Nt3cWNHP-y-Bihkv-L98TdoiJS4DwYFv0eRp5124
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI1OTQ0NzhjYzFlNDc1OTBmYTVhYmEiLCJuYW1lIjoiVG9waSIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTYxNzAxfQ.XwVilTszdh8RKizjOJgbexTI_5AJsvIbyqbZH8tvgxA
 
 ###CREATE USER
 POST {{apiUrl}}/createUser
 Content-Type: application/json
 
 {
-    "name": "Erik",
-    "password": "Erik",
-    "user": "Erik",
+    "name": "Topi",
+    "password": "Topi",
+    "user": "Topi"
 }
 
 ###LOGIN
@@ -17,8 +17,8 @@ POST {{apiUrl}}/login
 Content-Type: application/json
 
 {
-    "password": "Erik",
-    "user": "Erik"
+    "password": "Topi",
+    "user": "Topi"
 }
 
 ###PATCH

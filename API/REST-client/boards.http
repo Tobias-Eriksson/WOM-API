@@ -1,6 +1,6 @@
 @apiUrl = http://localhost:3070/boards
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTU0Nzc1fQ.gilgph1x41pFrrsQJAXECa_yLzapOA6P9IrffX-G7ms
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI1OTQ0NzhjYzFlNDc1OTBmYTVhYmEiLCJuYW1lIjoiVG9waSIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTYzNTg0fQ.uhKYk8Mk3M-aKxMAfWcwJ40FYiGV_hitKCrCWkB6drg
 
 
 ### GET ALL BOARDS FOR AUTHENTICATED USER
@@ -9,7 +9,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE NEW BOARD
-POST {{apiUrl}}/epicboard2
+POST {{apiUrl}}/epicboard
 Authorization: Bearer {{token}}
 
 ### UPDATE BOARD epicboard

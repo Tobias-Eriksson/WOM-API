@@ -50,7 +50,7 @@ router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
     return res.send({ msg: "Success", notes: noteData });
   } catch (err) {
     console.error('Error fetching notes:', err);
-    res.status(500).json({ error: 'Could not update board' });
+    res.status(500).json({ error: 'Could not get notes' });
   }
 });
 
