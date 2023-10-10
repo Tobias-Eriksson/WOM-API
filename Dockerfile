@@ -9,12 +9,14 @@ COPY package*.json ./
 
 # Install application dependencies
 RUN npm install
-RUN command npm install bcrypt
 
 # Copy the application source code to the working directory
 COPY . .
 
-#Port for api
-EXPOSE 3000
+#Generate prisma schema
+RUN npx prisma generate
 
-CMD ["node", "dist/server.js"]
+#Port for api
+EXPOSE 3070
+
+CMD ["npm", "run", "dev"]

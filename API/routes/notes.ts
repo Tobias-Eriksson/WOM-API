@@ -18,23 +18,29 @@ router.get("/", authMiddleware, async (req: any, res: any) => {
 */
 
 //GET ALL NOTES FROM BOARD
-router.get("/board/:board", authMiddleware, async (req: any, res: any) => {
+router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
   try {
     //checka om access till board
     const authUser = (req as any).authUser;
-    if (!authUser.boards.includes(req.params.board)) {
-      return res
-        .status(500)
-        .send({
-          msg: "Error",
-          error: "User has no access to board " + req.params.board,
-        });
+    const board = await prisma.board.findUnique({
+      where: {
+        id: req.params.boardId,
+      },
+    });
+
+    //Check om board finns
+    if (!board) return res.status(500).send({ msg: "Error", error: "Board not found" })
+
+    //check om authoriserad
+    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
+      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
     }
+
 
     //Hitta alla notes i board
     const noteData = await prisma.note.findMany({
       where: {
-        board: req.params.board,
+        boardId: req.params.boardId,
       },
     });
     if (!noteData) {
@@ -43,7 +49,8 @@ router.get("/board/:board", authMiddleware, async (req: any, res: any) => {
 
     return res.send({ msg: "Success", notes: noteData });
   } catch (err) {
-    return res.status(500).send({ msg: "Error", error: err });
+    console.error('Error fetching notes:', err);
+    res.status(500).json({ error: 'Could not update board' });
   }
 });
 
@@ -57,14 +64,22 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
         id: req.params.id,
       },
     });
+    console.log(findNote)
     if (!findNote) {
       return res.send({ msg: "ERROR", error: "Note not found" });
     }
-    if (!authUser.boards.includes(findNote.board)) {
-      return res.send({
-        msg: "ERROR",
-        error: "User does not have access to board where the note is located",
-      });
+    //CHECK AUTH
+    //Get board föratt check auth
+    const board = await prisma.board.findUnique({
+      where: {
+        id: findNote.boardId,
+      },
+    });
+    //Check om board finns
+    if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
+    //check om authoriserad
+    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
+      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
     }
 
     //Read note
@@ -73,9 +88,10 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
         id: req.params.id,
       },
     })
-    res.send({ msg: "get", reqBody: note })
+    res.send({ msg: "get", note })
   } catch (err) {
-    res.send({ msg: "ERROR", error: err })
+    console.error('Error fetching note:', err);
+    res.status(500).json({ error: 'Could not fetch note' });
   }
 })
 
@@ -83,7 +99,6 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
 //UPDATE
 router.patch("/:id", authMiddleware, async (req: any, res: any) => {
   try {
-    ////Checka om access till board vart note är
     const authUser = (req as any).authUser;
     const findNote = await prisma.note.findUnique({
       where: {
@@ -93,11 +108,19 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
     if (!findNote) {
       return res.send({ msg: "ERROR", error: "Note not found" });
     }
-    if (!authUser.boards.includes(findNote.board)) {
-      return res.send({
-        msg: "ERROR",
-        error: "User does not have access to board where the note is located",
-      });
+
+    //CHECK AUTH
+    //Get board föratt check auth
+    const board = await prisma.board.findUnique({
+      where: {
+        id: findNote.boardId,
+      },
+    });
+    //Check om board finns
+    if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
+    //check om authoriserad
+    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
+      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
     }
 
     //Patch note
@@ -106,7 +129,7 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
         id: req.params.id,
       },
       data: {
-        board: req.body.board,
+        boardId: req.body.board,
         heading: req.body.heading,
         content: req.body.content,
         color: req.body.color,
@@ -132,11 +155,18 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
     if (!note) {
       return res.send({ msg: "ERROR", error: "Note not found" });
     }
-    if (!authUser.boards.includes(note.board)) {
-      return res.send({
-        msg: "ERROR",
-        error: "User does not have access to board where the note is located",
-      });
+    //CHECK AUTH
+    //Get board föratt check auth
+    const board = await prisma.board.findUnique({
+      where: {
+        id: note.boardId,
+      },
+    });
+    //Check om board finns
+    if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
+    //check om authoriserad
+    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
+      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
     }
 
     //Delete note
@@ -147,7 +177,7 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
     });
     return res.send({
       msg: "delete",
-      id: req.params.id,
+      note
     });
   } catch (err) {
     return res.send({ msg: "ERROR", error: err });
@@ -155,23 +185,30 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
 });
 
 //CREATE
-router.post("/", authMiddleware, async (req: any, res: any) => {
+router.post("/:boardId", authMiddleware, async (req: any, res: any) => {
   try {
     //Check om access till board
     const authUser = (req as any).authUser;
-    if (!authUser.boards.includes(req.body.board)) {
-      return res
-        .status(500)
-        .send({
-          msg: "Error",
-          error: "User has no access to board " + req.body.board,
-        });
+
+    //CHECK AUTH
+    //Get board föratt check auth
+    const board = await prisma.board.findUnique({
+      where: {
+        id: req.params.boardId,
+      },
+    });
+    //Check om board finns
+    if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
+    //check om authoriserad
+    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
+      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
     }
+
 
     //Create note
     const note = await prisma.note.create({
       data: {
-        board: req.body.board,
+        boardId: board.id,
         heading: req.body.heading,
         content: req.body.content,
         color: req.body.color,
@@ -184,6 +221,16 @@ router.post("/", authMiddleware, async (req: any, res: any) => {
     if (!note) {
       return res.send({ msg: "ERROR", error: "failed to create note" });
     }
+
+    //Update board to include note
+    const updatedBoard = await prisma.board.update({
+      where: {
+        id: board.id
+      },
+      data: {
+        notes: Array.from(new Set(board.notes.concat(note.id))),
+      },
+    });
 
     return res.send({ msg: "post", note: note });
   } catch (err) {

@@ -1,10 +1,28 @@
-@apiUrl = http://localhost:8080/boards
+@apiUrl = http://localhost:3070/boards
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0Il0sImlhdCI6MTY5NjMzMDYxM30.gOGDu7MMI3REdKDjv77gQ070nuEPGvodE0wWfq_0NEY
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTU0Nzc1fQ.gilgph1x41pFrrsQJAXECa_yLzapOA6P9IrffX-G7ms
 
 
+### GET ALL BOARDS FOR AUTHENTICATED USER
 GET {{apiUrl}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
+### CREATE NEW BOARD
+POST {{apiUrl}}/epicboard2
+Authorization: Bearer {{token}}
 
+### UPDATE BOARD epicboard
+PUT {{apiUrl}}/652581f7e68cbc591e65de30
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "boardUsers": ["Erik", "tobias"],
+    "notes": "12341541234"
+}
+
+
+### DELETE BOARD
+DELETE {{apiUrl}}/652579bd67a5a40af3539acd
+Authorization: Bearer {{token}}

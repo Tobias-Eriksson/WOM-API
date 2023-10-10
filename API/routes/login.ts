@@ -54,7 +54,6 @@ router.post("/login", async (req: any, res: any) => {
                 sub: user.id,
                 name: user.name,
                 expiresIn: "1d",
-                boards: user.boards,
             },
             process.env.JWT_SECRET
         );
@@ -81,7 +80,6 @@ router.post("/createUser", async (req: any, res: any) => {
                 name: requestBody.name,
                 password: hashedPassword,
                 user: requestBody.user,
-                boards: requestBody.boards,
             },
         });
         return res.send({ msg: "success", newUser: requestBody.user });
@@ -109,7 +107,6 @@ router.patch("/", authMiddleware, async (req: any, res: any) => {
             data: {
                 password: req.body.password,
                 name: req.body.name,
-                boards: authUser.boards.concat(req.body.boards),
             },
         });
         return res.send({ msg: "patch", reqBody: req.body });

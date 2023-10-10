@@ -1,6 +1,6 @@
-@apiUrl = http://localhost:3000/login
+@apiUrl = http://localhost:3070/login
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0IiwiZGVmYXVsdCJdLCJpYXQiOjE2OTYzNTY5NDR9.ByYYl8L6f1ppQ70RjTF6Ig27awmV7L9RwVTrRLdEdvA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTUyODE0fQ.J81Nt3cWNHP-y-Bihkv-L98TdoiJS4DwYFv0eRp5124
 
 ###CREATE USER
 POST {{apiUrl}}/createUser

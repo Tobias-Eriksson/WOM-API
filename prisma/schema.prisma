@@ -10,7 +10,7 @@ datasource db {
 
 model Note {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  board     String
+  boardId   String
   heading   String?
   content   String?
   color     String
@@ -24,5 +24,12 @@ model User {
   user     String  @unique
   password String
   name     String?
-  boards   Json?
+}
+
+model Board {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  boardOwnerId String
+  boardUsers   String[]
+  notes        String[]
 }

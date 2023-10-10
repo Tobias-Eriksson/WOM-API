@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/Tobias-Eriksson/WOM-API/issues"
   },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
   "homepage": "https://github.com/Tobias-Eriksson/WOM-API#readme",
   "devDependencies": {
     "@types/express": "^4.17.17",

@@ -1,38 +1,33 @@
-@apiUrl = http://localhost:3000/notes
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFiZWU0YmI3YTU1NDU5ODVmNTFhZmEiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiYm9hcmRzIjpbIm1vcm8iLCJtb3JvMiIsIldhbGxwYXBlcnMiLCJtb3JvIiwibW9ybzMiLCJ3YWxscGFwZXJzIiwibW9ybzQ0IiwiZGVmYXVsdCJdLCJpYXQiOjE2OTYzNTY5NDR9.ByYYl8L6f1ppQ70RjTF6Ig27awmV7L9RwVTrRLdEdvA
+@apiUrl = http://localhost:3070/notes
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTU0Nzc1fQ.gilgph1x41pFrrsQJAXECa_yLzapOA6P9IrffX-G7ms
 
 ###CREATE
-POST {{apiUrl}}
+POST {{apiUrl}}/652579b867a5a40af3539acc
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 {
     "content": "Moro erik 3.10",
-    "board": "moro",
     "heading": "Bigheading",
     "color": "red",
     "position": "1"
 }
 
 ###READ
-GET {{apiUrl}}/651c42a9a162e59bf7500f75
+GET {{apiUrl}}/65258098eed08f1ab50b6958
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-###READALL
-GET {{apiUrl}}
-Content-Type: application/json
-Authorization: Bearer {{token}}
 
 ###READ ALL NOTES FROM BOARD
-GET {{apiUrl}}/board/default
+GET {{apiUrl}}/board/652579b867a5a40af3539acc
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ###UPDATE
-PATCH {{apiUrl}}/651ad6c3e9d788c43711a58d
+PATCH {{apiUrl}}/65258087eed08f1ab50b6956
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -43,7 +38,7 @@ Authorization: Bearer {{token}}
 }
 
 ###DELETE
-DELETE {{apiUrl}}/651ad05e8977cfb0dff301c7
+DELETE {{apiUrl}}/65258068e8c696183e623ea9
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
