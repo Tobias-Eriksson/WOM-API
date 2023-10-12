@@ -31,23 +31,23 @@ router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board not found" })
 
-    //check om authoriserad
-    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
-      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
+    //check om owner eller authuser
+    if (board.boardUsers.includes(authUser.user) || board.boardOwnerId == authUser.sub) {
+
+      //Hitta alla notes i board
+      const noteData = await prisma.note.findMany({
+        where: {
+          boardId: req.params.boardId,
+        },
+      });
+      if (!noteData) {
+        return res.status(500).send({ msg: "Error", error: "No notes found" });
+      }
+
+      return res.send({ msg: "Success", notes: noteData });
+    } else {
+      return res.status(500).json({ error: 'User not authorized to board' });
     }
-
-
-    //Hitta alla notes i board
-    const noteData = await prisma.note.findMany({
-      where: {
-        boardId: req.params.boardId,
-      },
-    });
-    if (!noteData) {
-      return res.status(500).send({ msg: "Error", error: "No notes found" });
-    }
-
-    return res.send({ msg: "Success", notes: noteData });
   } catch (err) {
     console.error('Error fetching notes:', err);
     res.status(500).json({ error: 'Could not get notes' });

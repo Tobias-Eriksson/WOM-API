@@ -1,6 +1,6 @@
 @apiUrl = http://localhost:3070/boards
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI3ZGEyY2YyOTEzNzkxODY4YjAzYjUiLCJuYW1lIjoiVG9waTEiLCJ1c2VyIjoiVG9waTEiLCJleHBpcmVzSW4iOiIxZCIsImlhdCI6MTY5NzExMDU3Nn0.ucpfIve5jxOBJyx-jQ4nMkuHn8L6Sb14vcbXP6amt7c
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI3YTk4MTEwNjBhZjVlMDQwNGIyMjIiLCJuYW1lIjoiVG9waSIsInVzZXIiOiJUb3BpIiwiZXhwaXJlc0luIjoiMWQiLCJpYXQiOjE2OTcxMjM0ODR9.6Ju9DZzmyacgzOHVIzb2sqCbO0oFZqLAnwU8lRf4y7Y
 
 
 
@@ -11,16 +11,16 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### CREATE NEW BOARD
-POST {{apiUrl}}/kaki
+POST {{apiUrl}}/kakibaki
 Authorization: Bearer {{token}}
 
 ### UPDATE BOARD epicboard
-PATCH {{apiUrl}}/6527da42f2913791868b03b6
+PATCH {{apiUrl}}/65280c59b3b563a79bc02040
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "boardUsers": ["Erik", "Tobias", "Erik4"]
+    "boardUsers": ["Topi"]
 }
 
 

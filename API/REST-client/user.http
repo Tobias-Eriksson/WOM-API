@@ -7,9 +7,9 @@ POST {{apiUrl}}/createUser
 Content-Type: application/json
 
 {
-    "name": "Topi",
-    "password": "Topi",
-    "user": "Topi"
+    "name": "Topi1",
+    "password": "Topi1",
+    "user": "Topi1"
 }
 
 ###LOGIN

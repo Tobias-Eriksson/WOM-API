@@ -1,5 +1,5 @@
 @apiUrl = http://localhost:3070/notes
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI3YTk4MTEwNjBhZjVlMDQwNGIyMjIiLCJuYW1lIjoiVG9waSIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk3MDk4MTE1fQ.tLg5fXl7KWo32EflQ24eXq1jQBTM4bwYIlD79mVhZHs
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI3YTk4MTEwNjBhZjVlMDQwNGIyMjIiLCJuYW1lIjoiVG9waSIsInVzZXIiOiJUb3BpIiwiZXhwaXJlc0luIjoiMWQiLCJpYXQiOjE2OTcxMjM0ODR9.6Ju9DZzmyacgzOHVIzb2sqCbO0oFZqLAnwU8lRf4y7Y
 
 
 ###CREATE new note in board
@@ -23,7 +23,7 @@ Authorization: Bearer {{token}}
 
 
 ###READ ALL NOTES FROM BOARD
-GET {{apiUrl}}/board/652579b867a5a40af3539acc
+GET {{apiUrl}}/board/65280ecbe130869d1dbb29ea
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
