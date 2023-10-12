@@ -117,11 +117,10 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om authoriserad
-    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
-      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
+    //check om owner eller authuser
+    if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
+      return res.status(500).json({ error: 'User not authorized to board' });
     }
-
     //Patch note
     const note = await prisma.note.update({
       where: {
@@ -163,9 +162,9 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om authoriserad
-    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
-      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
+    //check om owner eller authuser
+    if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
+      return res.status(500).json({ error: 'User not authorized to board' });
     }
 
     //Delete note
