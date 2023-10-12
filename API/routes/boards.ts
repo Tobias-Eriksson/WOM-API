@@ -61,7 +61,7 @@ router.post('/:name', authMiddleware, async (req: any, res: any) => {
 });
 
 //update board
-router.put('/:id', authMiddleware, async (req, res) => {
+router.patch('/:id', authMiddleware, async (req, res) => {
     try {
         const authUser = (req as any).authUser;
 

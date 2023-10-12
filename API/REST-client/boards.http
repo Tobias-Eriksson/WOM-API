@@ -15,7 +15,7 @@ POST {{apiUrl}}/kaki
 Authorization: Bearer {{token}}
 
 ### UPDATE BOARD epicboard
-PUT {{apiUrl}}/6527da42f2913791868b03b6
+PATCH {{apiUrl}}/6527da42f2913791868b03b6
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
