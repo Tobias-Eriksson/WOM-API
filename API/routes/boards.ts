@@ -33,7 +33,7 @@ router.get("/", authMiddleware, async (req: any, res: any) => {
             return res.status(500).send({ msg: "Error", error: "No boards found for user " + authUser.name })
         }
 
-        return res.send({ msg: "Success", boards: boardsData })
+        return res.status(200).send({ msg: "Success", boards: boardsData })
     } catch (err) {
         res.status(500).send({ msg: "Error", error: err })
         console.log(err)
@@ -102,7 +102,7 @@ router.patch('/:id', authMiddleware, async (req, res) => {
                         user: boardUsers[i],
                     },
                 });
-                if (!user) return res.status(404).json({ error: 'User ' + boardUsers[i] + " not found" });
+                if (!user) return res.status(404).json({ error: "User " + boardUsers[i] + " not found" });
             }
 
             //Ifall req.body.userBoards är 1 person inte i en array exmepel: "boardUsers": "Erik"
@@ -129,7 +129,7 @@ router.patch('/:id', authMiddleware, async (req, res) => {
             },
         });
 
-        res.status(200).json(updatedBoard);
+        res.status(201).json(updatedBoard);
     } catch (error) {
         console.error('Error updating board:', error);
         res.status(500).json({ error: 'Could not read board Server Error' });

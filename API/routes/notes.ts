@@ -45,7 +45,7 @@ router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
       return res.status(500).send({ msg: "Error", error: "No notes found" });
     }
 
-    return res.send({ msg: "Success", notes: noteData });
+    return res.status(200).send({ msg: "Success", notes: noteData });
 
   } catch (err) {
     console.error('Error fetching notes:', err);
@@ -53,7 +53,7 @@ router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
   }
 });
 
-//READ
+//READ sigle note
 router.get("/:id", authMiddleware, async (req: any, res: any) => {
   try {
     //Checka om access till board vart note är
@@ -87,10 +87,10 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
         id: req.params.id,
       },
     })
-    res.send({ msg: "get", note })
+    return res.status(200).send({ msg: "Success", note })
   } catch (err) {
     console.error('Error fetching note:', err);
-    res.status(500).json({ error: 'Could not fetch note' });
+    return res.status(500).send({ error: 'Could not fetch note' });
   }
 })
 
@@ -105,7 +105,7 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
       },
     });
     if (!findNote) {
-      return res.send({ msg: "ERROR", error: "Note not found" });
+      return res.status(500).send({ msg: "ERROR", error: "Note not found" });
     }
 
     //CHECK AUTH
@@ -135,9 +135,9 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
         position: req.body.position,
       },
     });
-    return res.send({ msg: "patch", reqBody: req.body });
+    return res.status(201).send({ msg: "patch", reqBody: req.body });
   } catch (err) {
-    return res.send({ msg: "ERROR", error: err });
+    return res.status(500).send({ msg: "ERROR", error: err });
   }
 });
 
@@ -174,12 +174,12 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
         id: req.params.id,
       },
     });
-    return res.send({
+    return res.status(200).send({
       msg: "delete",
       note
     });
   } catch (err) {
-    return res.send({ msg: "ERROR", error: err });
+    return res.status(500).send({ msg: "ERROR", error: err });
   }
 });
 
@@ -218,7 +218,7 @@ router.post("/:boardId", authMiddleware, async (req: any, res: any) => {
     });
 
     if (!note) {
-      return res.send({ msg: "ERROR", error: "failed to create note" });
+      return res.status(500).send({ msg: "ERROR", error: "failed to create note" });
     }
 
     //Update board to include note
@@ -231,10 +231,10 @@ router.post("/:boardId", authMiddleware, async (req: any, res: any) => {
       },
     });
 
-    return res.send({ msg: "post", note: note });
+    return res.status(201).send({ msg: "Success", note: note });
   } catch (err) {
     console.log(err);
-    return res.send({ msg: "ERROR", error: err });
+    return res.status(500).send({ msg: "ERROR", error: err });
   }
 });
 

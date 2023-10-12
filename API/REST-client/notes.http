@@ -23,7 +23,7 @@ Authorization: Bearer {{token}}
 
 
 ###READ ALL NOTES FROM BOARD
-GET {{apiUrl}}/board/65280ecbe130869d1dbb29ea
+GET {{apiUrl}}/board/652581f7e68cbc591e65de30
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
