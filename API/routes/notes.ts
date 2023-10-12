@@ -31,7 +31,7 @@ router.get("/board/:boardId", authMiddleware, async (req: any, res: any) => {
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board not found" })
 
-    //check om owner eller authuser
+    //check om owner eller boardUser
     if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
       return res.status(500).json({ error: 'User not authorized to board' });
     }
@@ -76,9 +76,9 @@ router.get("/:id", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om authoriserad
-    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
-      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
+    //check om owner eller boardUser
+    if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
+      return res.status(500).json({ error: 'User not authorized to board' });
     }
 
     //Read note
@@ -117,7 +117,7 @@ router.patch("/:id", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om owner eller authuser
+    //check om owner eller boardUser
     if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
       return res.status(500).json({ error: 'User not authorized to board' });
     }
@@ -162,7 +162,7 @@ router.delete("/:id", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om owner eller authuser
+    //check om owner eller boardUser
     if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
       return res.status(500).json({ error: 'User not authorized to board' });
     }
@@ -197,9 +197,9 @@ router.post("/:boardId", authMiddleware, async (req: any, res: any) => {
     });
     //Check om board finns
     if (!board) return res.status(500).send({ msg: "Error", error: "Board where note is not found" })
-    //check om authoriserad
-    if (board.boardOwnerId !== authUser.sub || (board.boardUsers && board.boardUsers.includes(authUser.user))) {
-      return res.status(500).send({ msg: "Error", error: "Not authorized to board" })
+    //check om owner eller boardUser
+    if (!board.boardUsers.includes(authUser.user) && !board.boardOwnerId == authUser.sub) {
+      return res.status(500).json({ error: 'User not authorized to board' });
     }
 
 
