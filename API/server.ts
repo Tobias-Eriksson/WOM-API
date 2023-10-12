@@ -2,7 +2,7 @@ import express, { Express, Request, Response, Router } from 'express'
 import dotenv from 'dotenv'
 const cors = require('cors')
 const notes = require('./routes/notes')
-const login = require('./routes/login')
+const login = require('./routes/user')
 const boards = require('./routes/boards')
 import authMiddleware from './middleware/auth'
 
@@ -21,7 +21,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use('/notes', notes)
-app.use('/login', login)
+app.use('/user', login)
 app.use('/boards', boards)
 
 app.listen(port, () => {

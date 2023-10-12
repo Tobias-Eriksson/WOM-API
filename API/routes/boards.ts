@@ -1,6 +1,7 @@
 import express, { Express } from 'express'
 import { PrismaClient } from '@prisma/client'
 import authMiddleware from '../middleware/auth'
+import { empty } from '@prisma/client/runtime/library'
 
 const prisma = new PrismaClient()
 const router: Express = express()
@@ -11,15 +12,25 @@ const router: Express = express()
 router.get("/", authMiddleware, async (req: any, res: any) => {
     try {
         const authUser = (req as any).authUser;
-        const boardsData = await prisma.board.findMany();
 
-        //Jank solution as I could not fetch with Prisma where boardUsers contains authUser.id...
-        const filteredBoards = boardsData.filter(board => {
-            return board.boardOwnerId === authUser.sub ||
-                (board.boardUsers && board.boardUsers.includes(authUser.user));
+
+        //Checka om owner av boarden
+        const boardsData = await prisma.board.findMany({
+            where: {
+                boardOwnerId: authUser.sub
+            },
         });
-        if (!filteredBoards) {
-            return res.status(500).send({ msg: "Error", error: "Boards not found" })
+
+        //Checka om authUser är med i boardens boardUsers. Prisma includes fungerar inte så most för hand check
+        const userBoardsData = await prisma.board.findMany();
+        for (let i = 0; i < userBoardsData.length; i++) {
+            if (userBoardsData[i].boardUsers.includes(authUser.user)) {
+                boardsData.push(userBoardsData[i])
+            }
+        }
+
+        if (boardsData.length == 0) {
+            return res.status(500).send({ msg: "Error", error: "No boards found for user " + authUser.name })
         }
 
         return res.send({ msg: "Success", boards: boardsData })
@@ -38,7 +49,7 @@ router.post('/:name', authMiddleware, async (req: any, res: any) => {
         const board = await prisma.board.create({
             data: {
                 name: req.params.name,
-                boardOwnerId: authUser.sub, // Associate the owner's ID with the board
+                boardOwnerId: authUser.sub,
             },
         });
 
@@ -66,6 +77,45 @@ router.put('/:id', authMiddleware, async (req, res) => {
         if (!existingBoard || existingBoard.boardOwnerId !== authUser.sub) {
             return res.status(404).json({ error: 'Board not found or unauthorized' });
         }
+
+        //Gör tom array ifall den inte är lagad me i request bodyn så att "Array.from" inte far sönder(används senare i prisma.board.update)
+        if (!req.body.notes) req.body.notes = []
+
+        const boardUsers = req.body.boardUsers
+
+        //Chech ifall de kommer ingen req.body.boardUsers
+        if (!req.body.boardUsers) {
+            req.body.boardUsers = []
+
+
+            ////Säkert en dålig practice att köra db queries i en loop sådär istället för en db query som hittar rätt sak
+            ////MEN 'contains' fungerar inte i prisma.findmany för nån orsak. Kan inte query "(if db.users contains boardUser)"
+
+            //Ifall boardUsers finns i bodyn, checka om de user(s) finns i databasen
+            //Check ifall req.body.boardUsers kommer som en array fron request bodyn. Exempel: "boardUsers": ["Erik", "Tobias", "Erik4"]
+        } else if (Array.isArray(req.body.boardUsers)) {
+
+            //Checka att alla users från req.body.boardUsers finns påriktigt i databasen som users
+            for (let i = 0; i < boardUsers.length; i++) {
+                const user = await prisma.user.findUnique({
+                    where: {
+                        user: boardUsers[i],
+                    },
+                });
+                if (!user) return res.status(404).json({ error: 'User ' + boardUsers[i] + " not found" });
+            }
+
+            //Ifall req.body.userBoards är 1 person inte i en array exmepel: "boardUsers": "Erik"
+        } else {
+            const user = await prisma.user.findUnique({
+                where: {
+                    user: boardUsers,
+                },
+            });
+            if (!user) return res.status(404).json({ error: 'User ' + boardUsers + " not found" });
+        }
+
+
 
         // Update the board
         const updatedBoard = await prisma.board.update({

@@ -20,6 +20,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
         // Save user info in req
         (req as any).authUser = authUser
 
+
         next();
     } catch (error: any) {
         console.log('JWT error:', error.message)

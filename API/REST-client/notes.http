@@ -1,20 +1,21 @@
 @apiUrl = http://localhost:3070/notes
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5NmU2MWRjZmEzNThhNjkwMTFiNzUiLCJuYW1lIjoiRXJpayIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk2OTU0Nzc1fQ.gilgph1x41pFrrsQJAXECa_yLzapOA6P9IrffX-G7ms
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI3YTk4MTEwNjBhZjVlMDQwNGIyMjIiLCJuYW1lIjoiVG9waSIsImV4cGlyZXNJbiI6IjFkIiwiaWF0IjoxNjk3MDk4MTE1fQ.tLg5fXl7KWo32EflQ24eXq1jQBTM4bwYIlD79mVhZHs
 
-###CREATE
-POST {{apiUrl}}/652579b867a5a40af3539acc
+
+###CREATE new note in board
+POST {{apiUrl}}/6527aa2517ad8e8e91dd416a
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 {
-    "content": "Moro erik 3.10",
+    "content": "Moro erik 12.10",
     "heading": "Bigheading",
     "color": "red",
     "position": "1"
 }
 
-###READ
+###READ /noteId
 GET {{apiUrl}}/65258098eed08f1ab50b6958
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -26,7 +27,7 @@ GET {{apiUrl}}/board/652579b867a5a40af3539acc
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
-###UPDATE
+###UPDATE /noteId
 PATCH {{apiUrl}}/65258087eed08f1ab50b6956
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -37,7 +38,7 @@ Authorization: Bearer {{token}}
     "content": "Googo gaagaa gogo"
 }
 
-###DELETE
+###DELETE /noteId
 DELETE {{apiUrl}}/65258068e8c696183e623ea9
 Content-Type: application/json
 Authorization: Bearer {{token}}
