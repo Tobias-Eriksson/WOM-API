@@ -13,7 +13,7 @@ dotenv.config()
 const app: Express = express()
 app.use(express.json())
 app.use(cors())
-const port = process.env.PORT
+const port = 3070
 
 
 app.get('/', (req: Request, res: Response) => {

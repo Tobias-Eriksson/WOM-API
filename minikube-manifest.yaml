@@ -17,6 +17,12 @@ spec:
           image: erikstob/wom-socketio:latest
           ports:
             - containerPort: 2000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: socket-jwt
+                  key: jwt
 
 ---
 apiVersion: apps/v1
@@ -39,6 +45,7 @@ spec:
           ports:
             - containerPort: 3000
 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -59,17 +66,28 @@ spec:
           image: erikstob/wom-api:latest
           ports:
             - containerPort: 3070
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt
+              name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-url
+                  key: url
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-frontend-service
+  name: frontend-service
 spec:
   selector:
-    app: your-node-app
+    app: frontend-app
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000 # Assuming your Node.js app is listening on port 3000
-  type: NodePort
+      port: 80 # Port on the service
+      targetPort: 3000 # Port on the pod
+  type: NodePort # Expose as a NodePort
