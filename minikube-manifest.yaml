@@ -39,12 +39,20 @@ spec:
       labels:
         app: frontend-app
     spec:
+      initContainers:
+        - name: wait-for-api-and-socket
+          image: busybox
+          command: ["/bin/sh", "-c", "until nc -z api-service 3070 && nc -z socketio-service 2000; do echo 'Waiting for API and Socket'; sleep 2; done;"]
       containers:
         - name: frontend-container
           image: erikstob/wom-frontend:latest
           ports:
             - containerPort: 3000
-
+                    env:
+            - name: SOCKET_URL
+              value: "http://socketio-service.svc.cluster.local:2000"
+              name: API_URL
+              value: "http://api-service.svc.cluster.local:3070"
 
 ---
 apiVersion: apps/v1
@@ -88,6 +96,34 @@ spec:
     app: frontend-app
   ports:
     - protocol: TCP
-      port: 80 # Port on the service
+      port: 3000 # Port on the service
       targetPort: 3000 # Port on the pod
-  type: NodePort # Expose as a NodePort
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: api-app
+  ports:
+    - protocol: TCP
+      port: 3070 # Port on the service
+      targetPort: 3070 # Port on the pod
+  type: NodePort 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socketio-service
+spec:
+  selector:
+    app: socketio-app
+  ports:
+    - protocol: TCP
+      port: 2000 # Port on the service
+      targetPort: 2000 # Port on the pod
+  type: NodePort 
