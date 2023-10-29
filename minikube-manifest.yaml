@@ -18,11 +18,11 @@ spec:
           ports:
             - containerPort: 2000
           env:
-          - name: SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: socket-jwt
-                key: jwt
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: socket-jwt
+                  key: jwt
 
 ---
 apiVersion: apps/v1
@@ -48,10 +48,10 @@ spec:
           image: erikstob/wom-frontend:latest
           ports:
             - containerPort: 3000
-                    env:
+          env:
             - name: SOCKET_URL
               value: "http://socketio-service.svc.cluster.local:2000"
-              name: API_URL
+            - name: API_URL
               value: "http://api-service.svc.cluster.local:3070"
 
 ---
@@ -73,18 +73,18 @@ spec:
         - name: api-container
           image: erikstob/wom-api:latest
           ports:
-          - containerPort: 3070
+            - containerPort: 3070
           env:
-          - name: JWT_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: jwt-secret
-                key: jwt
-            name: DATABASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-url
-                key: url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-url
+                  key: url
 
 ---
 apiVersion: v1
@@ -96,8 +96,8 @@ spec:
     app: frontend-app
   ports:
     - protocol: TCP
-      port: 3000 # Port on the service
-      targetPort: 3000 # Port on the pod
+      port: 3000
+      targetPort: 3000
   type: NodePort
 
 ---
@@ -110,9 +110,9 @@ spec:
     app: api-app
   ports:
     - protocol: TCP
-      port: 3070 # Port on the service
-      targetPort: 3070 # Port on the pod
-  type: NodePort 
+      port: 3070
+      targetPort: 3070
+  type: NodePort
 
 ---
 apiVersion: v1
@@ -121,9 +121,9 @@ metadata:
   name: socketio-service
 spec:
   selector:
-    app: socketio-app
+    app: socket-app
   ports:
     - protocol: TCP
-      port: 2000 # Port on the service
-      targetPort: 2000 # Port on the pod
-  type: NodePort 
+      port: 2000
+      targetPort: 2000
+  type: NodePort
