@@ -18,11 +18,11 @@ spec:
           ports:
             - containerPort: 2000
           env:
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: socket-jwt
-                  key: jwt
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: socket-jwt
+                key: jwt
 
 ---
 apiVersion: apps/v1
@@ -73,18 +73,18 @@ spec:
         - name: api-container
           image: erikstob/wom-api:latest
           ports:
-            - containerPort: 3070
+          - containerPort: 3070
           env:
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: jwt
-              name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-url
-                  key: url
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: jwt
+            name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-url
+                key: url
 
 ---
 apiVersion: v1
