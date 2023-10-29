@@ -1,4 +1,4 @@
-@apiUrl = http://localhost:3070/user
+@apiUrl = http://91.152.127.146:3070/user
 
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTI4MjVlOGM1YjNlODJjMTBkYjA0YmEiLCJuYW1lIjoiRXJpayIsInVzZXIiOiJFcmlrIiwiZXhwaXJlc0luIjoiMWQiLCJpYXQiOjE2OTcxMzAyNTl9.iPvYUbaxQOkctmNgNR21qsleJHpxa8j_z7LZx_rM5J4
 
@@ -7,9 +7,9 @@ POST {{apiUrl}}/createUser
 Content-Type: application/json
 
 {
-    "name": "Topi1",
-    "password": "Topi1",
-    "user": "Topi1"
+    "name": "Topi",
+    "password": "Topi",
+    "user": "Topi"
 }
 
 ###LOGIN

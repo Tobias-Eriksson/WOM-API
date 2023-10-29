@@ -23,6 +23,7 @@ spec:
                 secretKeyRef:
                   name: socket-jwt
                   key: jwt
+      dnsPolicy: Default
 
 ---
 apiVersion: apps/v1
@@ -58,6 +59,7 @@ spec:
               value: "http://socketio-service.svc.cluster.local:2000"
             - name: API_URL
               value: "http://api-service.svc.cluster.local:3070"
+      dnsPolicy: Default
 
 ---
 apiVersion: apps/v1
@@ -90,6 +92,7 @@ spec:
                 secretKeyRef:
                   name: mongodb-url
                   key: url
+      dnsPolicy: Default
 
 ---
 apiVersion: v1

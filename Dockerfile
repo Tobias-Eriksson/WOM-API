@@ -10,6 +10,10 @@ COPY package*.json ./
 # Install application dependencies
 RUN npm install
 
+
+RUN npm install mongodb
+
+
 # Copy the application source code to the working directory
 COPY . .
 
