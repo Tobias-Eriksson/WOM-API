@@ -42,7 +42,12 @@ spec:
       initContainers:
         - name: wait-for-api-and-socket
           image: busybox
-          command: ["/bin/sh", "-c", "until nc -z api-service 3070 && nc -z socketio-service 2000; do echo 'Waiting for API and Socket'; sleep 2; done;"]
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              "until nc -z api-service 3070 && nc -z socketio-service 2000; do echo 'Waiting for API and Socket'; sleep 2; done;",
+            ]
       containers:
         - name: frontend-container
           image: erikstob/wom-frontend:latest
@@ -98,6 +103,7 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+      nodePort: 30000
   type: NodePort
 
 ---
@@ -112,6 +118,7 @@ spec:
     - protocol: TCP
       port: 3070
       targetPort: 3070
+      nodePort: 30070
   type: NodePort
 
 ---
@@ -126,4 +133,5 @@ spec:
     - protocol: TCP
       port: 2000
       targetPort: 2000
+      nodePort: 32000
   type: NodePort
