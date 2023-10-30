@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag erikstob/wom-api:latest --platform linux/amd64
     - name: Push the Docker image
-      run: push erikstob/wom-api
+      run: docker push erikstob/wom-api
