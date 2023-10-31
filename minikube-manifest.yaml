@@ -47,7 +47,7 @@ spec:
             [
               "/bin/sh",
               "-c",
-              "until nc -z api-service 3070 && nc -z socketio-service 2000; do echo 'Waiting for API and Socket'; sleep 2; done;",
+              "until nc -z api-service 30070 && nc -z socketio-service 32000; do echo 'Waiting for API and Socket'; sleep 2; done;",
             ]
       containers:
         - name: frontend-container
