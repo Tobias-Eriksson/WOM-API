@@ -34,3 +34,18 @@ jobs:
           push: true
           tags: erikstob/wom-api:latest
           labels: ${{ steps.meta.outputs.labels }}
+
+  deploy_to_minikube:
+    name: Deploy image to minikube cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy with kubectl
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_HOST: ${{ secrets.KUBE_HOST }}
+          KUBE_CERTIFICATE: ${{ secrets.KUBE_CERTIFICATE }}
+          KUBE_USERNAME: ${{ secrets.KUBE_USERNAME }}
+          KUBE_PASSWORD: ${{ secrets.KUBE_PASSWORD }}
+        with:
+          context: .
+          args: kubectl apply -f ./minikube-manifest.yaml
