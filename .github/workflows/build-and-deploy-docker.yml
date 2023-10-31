@@ -49,4 +49,4 @@ jobs:
           KUBE_PASSWORD: ${{ secrets.KUBE_PASSWORD }}
         with:
           context: .
-          args: kubectl apply -f ./minikube-manifest.yaml
+          args: apply -f ./minikube-manifest.yaml
