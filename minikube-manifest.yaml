@@ -39,16 +39,6 @@ spec:
     metadata:
       labels:
         app: frontend-app
-    spec:
-      initContainers:
-        - name: wait-for-api-and-socket
-          image: busybox
-          command:
-            [
-              "/bin/sh",
-              "-c",
-              "until nc -z api-service 30070 && nc -z socketio-service 32000; do echo 'Waiting for API and Socket'; sleep 2; done;",
-            ]
       containers:
         - name: frontend-container
           image: erikstob/wom-frontend:latest
