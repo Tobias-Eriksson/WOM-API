@@ -39,6 +39,7 @@ spec:
     metadata:
       labels:
         app: frontend-app
+    spec:
       containers:
         - name: frontend-container
           image: erikstob/wom-frontend:latest
