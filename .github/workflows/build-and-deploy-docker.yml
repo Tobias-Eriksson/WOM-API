@@ -46,6 +46,7 @@ jobs:
       - name: Set up kubectl
         run: |
           echo "$KUBECONFIG" > kubeconfig.yml
+          cat kubeconfig.yml
           kubectl config use-context my-context # Use the context from your kubeconfig
         env:
           KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
