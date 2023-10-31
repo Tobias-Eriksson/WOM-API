@@ -38,6 +38,7 @@ jobs:
   deploy_to_minikube:
     name: Deploy image to minikube cluster
     runs-on: ubuntu-latest
+    needs: push_to_registry
     steps:
       - name: Deploy with kubectl
         uses: actions-hub/kubectl@master
